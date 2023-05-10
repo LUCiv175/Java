@@ -19,8 +19,6 @@ public class Controller {
     }
 
     public double remove(int pos,int ora,int minuti){
-        System.out.println(pos);
-        System.out.println(garage.statoPosizioni());
-        return garage.uscitaVeicolo(0,ora,minuti);
+        return garage.uscitaVeicolo(pos,ora,minuti);
     }
 }

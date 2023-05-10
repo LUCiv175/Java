@@ -54,8 +54,11 @@ public class PannelloAggiunta  extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 double value=0;
                 Date d=new Date();
-                value=controller.remove((Integer) spinnerRimuovi.getValue(),d.getHours(),d.getMinutes());
-                textAreaPanel.reset();
+                try {
+                    int pos=((Integer) spinnerRimuovi.getValue());
+                    value = controller.remove(pos, d.getHours(), d.getMinutes());
+
+                    textAreaPanel.reset();
 
                     JDialog dialog = new JDialog();
                     dialog.setVisible(true);
@@ -65,6 +68,9 @@ public class PannelloAggiunta  extends JPanel {
                     areaPrezzo.setEditable(false);
                     areaPrezzo.append("prezzo: " + value);
                     dialog.add(areaPrezzo);
+                }catch (NullPointerException exception){
+                    System.out.println("errorew");
+                }
 
             }
         });
