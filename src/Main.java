@@ -1,5 +1,4 @@
 import java.util.Scanner;
-import java.util.InputMismatchException;
 
 public class Main {
     public static void main(String[] args) {
@@ -9,236 +8,75 @@ public class Main {
         do {
             try {
                 System.out.println("1)aggiungi 2)rimuovi 3)statoPosizioni 10)esci");
-                input = s.nextInt();
+                input = Integer.parseInt(s.nextLine());
+                int stato;
                 switch (input) {
-                    case 1: {
-                        boolean errore = false;
-                        int ore = 0;
-
-                        do {
-                            try {
-                                errore=false;
-                                s=new Scanner(System.in);
-                                System.out.println("ore: ");
-                                ore = s.nextInt();
-                            }catch(InputMismatchException e){
-                                errore=true;
-                                System.out.println("errore nell'inserimento");
-                            }
-                        }while (errore);
-
-                        int minuti = 0;
-                        do {
-                            try {
-                                errore=false;
-                                s=new Scanner(System.in);
-                                System.out.println("minuti: ");
-                                minuti = s.nextInt();
-                            }catch(InputMismatchException e){
-                                errore=true;
-                                System.out.println("errore nell'inserimento");
-                            }
-                        }while (errore);
-
-                        Veicolo v = leggi();
-                        garage.ingressoVeicolo(v, ore, minuti);
+                    case 1 -> {
+                        System.out.println("anno immatricolazione: ");
+                        int annoImmatricolazione = Integer.parseInt(s.nextLine());
+                        System.out.println("marca: ");
+                        String marca = s.nextLine();
+                        System.out.println("modello: ");
+                        String modello = s.nextLine();
+                        System.out.println("tipo alimentazione: ");
+                        String tipoAlimentazione = s.nextLine();
+                        System.out.println("cilindrata: ");
+                        int cilindrata = Integer.parseInt(s.nextLine());
+                        System.out.println("1)autovettura 2)motocicletta 3)furgone");
+                        int tipo = Integer.parseInt(s.nextLine());
+                        if (tipo == 1) {
+                            System.out.println("numero posti: ");
+                            int numeroPosti = Integer.parseInt(s.nextLine());
+                            Autovettura a = new Autovettura(annoImmatricolazione, marca, modello, tipoAlimentazione, cilindrata, numeroPosti);
+                            System.out.println("ora ingresso: ");
+                            int oraIngresso = Integer.parseInt(s.nextLine());
+                            System.out.println("minuto ingresso: ");
+                            int minutoIngresso = Integer.parseInt(s.nextLine());
+                            stato = garage.ingressoVeicolo(a, oraIngresso, minutoIngresso);
+                        } else if (tipo == 2) {
+                            System.out.println("numero tempi:");
+                            int numeroTempi = Integer.parseInt(s.nextLine());
+                            Motocicletta m = new Motocicletta(annoImmatricolazione, marca, modello, tipoAlimentazione, cilindrata, numeroTempi);
+                            System.out.println("ora ingresso: ");
+                            int oraIngresso = Integer.parseInt(s.nextLine());
+                            System.out.println("minuto ingresso: ");
+                            int minutoIngresso = Integer.parseInt(s.nextLine());
+                            stato = garage.ingressoVeicolo(m, oraIngresso, minutoIngresso);
+                        } else if (tipo == 3) {
+                            System.out.println("capacita' di carico: ");
+                            int capacita = Integer.parseInt(s.nextLine());
+                            Furgone f = new Furgone(annoImmatricolazione, marca, modello, tipoAlimentazione, cilindrata, capacita);
+                            System.out.println("ora ingresso: ");
+                            int oraIngresso = Integer.parseInt(s.nextLine());
+                            System.out.println("minuto ingresso: ");
+                            int minutoIngresso = Integer.parseInt(s.nextLine());
+                            stato = garage.ingressoVeicolo(f, oraIngresso, minutoIngresso);
+                        } else {
+                            throw new NumberFormatException();
+                        }
+                        if (stato == -1) {
+                            System.out.println("garage pieno");
+                        } else {
+                            System.out.println("il parcheggio e' stato effettuato in posizione " + stato);
+                        }
                     }
-                    break;
-                    case 2: {
-                        boolean errore = false;
-
-                        int posizione = 0;
-
-                        do {
-                            try {
-                                errore=false;
-                                s=new Scanner(System.in);
-                                System.out.println("posizione: ");
-                                posizione = s.nextInt();
-                            }catch(InputMismatchException e){
-                                errore=true;
-                                System.out.println("errore nell'inserimento");
-                            }
-                        }while (errore);
-
-                        int ore = 0;
-
-                        do {
-                            try {
-                                errore=false;
-                                s=new Scanner(System.in);
-                                System.out.println("ore: ");
-                                ore = s.nextInt();
-                            }catch(InputMismatchException e){
-                                errore=true;
-                                System.out.println("errore nell'inserimento");
-                            }
-                        }while (errore);
-
-                        int minuti = 0;
-                        do {
-                            try {
-                                errore=false;
-                                s=new Scanner(System.in);
-                                System.out.println("minuti: ");
-                                minuti = s.nextInt();
-                            }catch(InputMismatchException e){
-                                errore=true;
-                                System.out.println("errore nell'inserimento");
-                            }
-                        }while (errore);
-
-                        char tipo=' ';
-
-                        do{
-                            try {
-                                System.out.println("1)furgone 2)motocicletta 3)autovettura");
-                                errore=false;
-                                s = new Scanner(System.in);
-                                input = s.nextInt();
-                                switch (input) {
-                                    case 1: {
-                                        tipo='f';
-                                    }
-                                    break;
-                                    case 2: {
-                                        tipo='m';
-                                    }
-                                    break;
-                                    case 3: {
-                                        tipo='a';
-                                    }
-                                    break;
-                                    default:{
-                                        errore=true;
-                                        System.out.println("errore nell'inserimento!");
-                                    }
-                                }
-                            } catch (InputMismatchException e) {
-                                System.out.println("errore nell'inserimento!");
-                            }
-                        }while(errore);
-
-                        System.out.println("prezzo: "+garage.uscitaVeicolo(posizione,ore,minuti,tipo));
+                    case 2 -> {
+                        System.out.println("ora uscita: ");
+                        int oraUscita = Integer.parseInt(s.nextLine());
+                        System.out.println("minuto uscita: ");
+                        int minutoUscita = Integer.parseInt(s.nextLine());
+                        System.out.println("posizione: ");
+                        int posizione = Integer.parseInt(s.nextLine());
+                        double importoDaPagare = garage.uscitaVeicolo(posizione, oraUscita, minutoUscita);
+                        System.out.println("importo da pagare: " + importoDaPagare);
                     }
-                    break;
-                    case 3: {
-                        garage.statoPosizioni();
-                    }
-                    break;
+                    case 3 -> garage.statoPosizioni();
                 }
-            } catch (InputMismatchException e) {
+            } catch (NumberFormatException e) {
                 System.out.println("errore nell'inserimento!");
             }
         } while (input != 10);
     }
-
-    public static Veicolo leggi() {
-        int input = 0;
-        while (true){
-            try {
-                System.out.println("1)furgone 2)motocicletta 3)autovettura");
-                Scanner s = new Scanner(System.in);
-                input = s.nextInt();
-                switch (input) {
-                    case 1: {
-                        Veicolo v = leggiGenerico();
-                        boolean errore = false;
-                        float capacitaCarico = 0;
-                        do {
-                            try {
-                                errore=false;
-                                s=new Scanner(System.in);
-                                System.out.println("capacita' carico: ");
-                                capacitaCarico = s.nextFloat();
-                            }catch(InputMismatchException e){
-                                errore=true;
-                                System.out.println("errore nell'inserimento");
-                            }
-                        }while (errore);
-                        return new Furgone(v, capacitaCarico);
-                    }
-                    case 2: {
-                        Veicolo v = leggiGenerico();
-                        boolean errore = false;
-                        int tempimotore = 0;
-                        do {
-                            try {
-                                errore=false;
-                                s=new Scanner(System.in);
-                                System.out.println("tempi motore: ");
-                                tempimotore = s.nextInt();
-                            }catch(InputMismatchException e){
-                                errore=true;
-                                System.out.println("errore nell'inserimento");
-                            }
-                        }while (errore);
-                        return new Motocicletta(v, tempimotore);
-                    }
-                    case 3: {
-                        Veicolo v = leggiGenerico();
-                        boolean errore = false;
-                        int numeroPosti = 0;
-                        do {
-                            try {
-                                errore=false;
-                                s=new Scanner(System.in);
-                                System.out.println("numero posti: ");
-                                numeroPosti = s.nextInt();
-                            }catch(InputMismatchException e){
-                                errore=true;
-                                System.out.println("errore nell'inserimento");
-                            }
-                        }while (errore);
-                        return new Autovettura(v, numeroPosti);
-                    }
-                }
-            } catch (InputMismatchException e) {
-                System.out.println("errore nell'inserimento!");
-            }
-        }
-    }
-
-    public static Veicolo leggiGenerico() {
-        Scanner scanner = new Scanner(System.in);
-        boolean errore=false;
-        int annoImmatricolazione = 0;
-        do {
-            try {
-                errore=false;
-                Scanner s=new Scanner(System.in);
-                System.out.println("inserire l'anno di immatricolazione: ");
-                annoImmatricolazione = s.nextInt();
-            }catch(InputMismatchException e){
-                errore=true;
-                System.out.println("errore nell'inserimento");
-            }
-        }while (errore);
-
-
-        System.out.println("inserire la marca: ");
-        String marca = scanner.nextLine();
-
-        System.out.println("inserire il modello: ");
-        String modello = scanner.nextLine();
-
-        System.out.println("inserire il tipo di alimentazione: ");
-        String tipoAlimentazione = scanner.nextLine();
-
-        int cilindrata = 0;
-        do {
-            try {
-                errore=false;
-                Scanner s=new Scanner(System.in);
-                System.out.println("inserire la cilindrata: ");
-                annoImmatricolazione = s.nextInt();
-            }catch(InputMismatchException e){
-                errore=true;
-                System.out.println("errore nell'inserimento");
-            }
-        }while (errore);
-
-        return new Veicolo(annoImmatricolazione, marca, modello, tipoAlimentazione, cilindrata);
-    }
 }
+
 

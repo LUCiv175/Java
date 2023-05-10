@@ -1,4 +1,4 @@
-public class Veicolo {
+public abstract class Veicolo {
     private int annoImmatricolazione;
     private String marca;
     private String modello;
@@ -63,9 +63,8 @@ public class Veicolo {
 
     @Override
     public String toString() {
-        String s = "anno immatricolazione: " + annoImmatricolazione + "; marca: " + marca + "; modello: " + modello
+        return "anno immatricolazione: " + annoImmatricolazione + "; marca: " + marca + "; modello: " + modello
                 + "; tipo alimentazione: " + tipoAlimentazione + "; cilindrata: " + cilindrata + ";";
-        return s;
     }
 
 }

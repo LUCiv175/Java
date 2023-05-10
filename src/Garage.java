@@ -1,7 +1,6 @@
 public class Garage {
     private VeicoloInGarage[] p;
     private final int nPosti = 25;
-    private final double costoFurgone = 2.0;
     private final double costoMotocicletta = 1.0;
     private final double costoAuto = 1.5;
 
@@ -25,23 +24,20 @@ public class Garage {
         return -1;
     }
 
-    public double uscitaVeicolo(int posizione, int ora, int minuti, char tipo) {
+    public double uscitaVeicolo(int posizione, int ora, int minuti) {
         try {
             double tempo = (float)(-p[posizione].getMinutiArrivo() - p[posizione].getOraArrivo() * 60 + ora * 60+ minuti) / 60;
-            double costo = 0.0;
-            switch (tipo) {
-                case 'm':
-                    costo = tempo * costoMotocicletta;
-                    break;
-                case 'a':
-                    costo = tempo * costoAuto;
-                    break;
-                case 'f':
-                    costo = tempo * costoFurgone;
-                    break;
-                default:
-                    throw new NullPointerException("404");
-            }
+            double costo;
+            String classe = p[posizione].getV().getClass().getSimpleName();
+
+            double costoFurgone = 2.0;
+            costo = switch (classe) {
+                case "Motocicletta" -> tempo * costoMotocicletta;
+                case "Autovettura" -> tempo * costoAuto;
+                case "Furgone" -> tempo * costoFurgone;
+                default -> throw new NullPointerException("404");
+            };
+            p[posizione] = null;
             return costo;
         } catch (NullPointerException e) {
             System.out.println("Elemento non trovato");
