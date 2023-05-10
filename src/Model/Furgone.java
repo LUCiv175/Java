@@ -1,3 +1,5 @@
+package Model;
+
 public class Furgone extends Veicolo {
     private float capacitaCarico;
 

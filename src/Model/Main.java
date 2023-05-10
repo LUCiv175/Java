@@ -1,3 +1,5 @@
+package Model;
+
 import java.util.Scanner;
 
 public class Main {
@@ -70,7 +72,7 @@ public class Main {
                         double importoDaPagare = garage.uscitaVeicolo(posizione, oraUscita, minutoUscita);
                         System.out.println("importo da pagare: " + importoDaPagare);
                     }
-                    case 3 -> garage.statoPosizioni();
+                    case 3 -> System.out.println(garage.statoPosizioni());
                 }
             } catch (NumberFormatException e) {
                 System.out.println("errore nell'inserimento!");

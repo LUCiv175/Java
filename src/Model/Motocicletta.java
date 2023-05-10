@@ -1,3 +1,5 @@
+package Model;
+
 public class Motocicletta extends Veicolo {
     private int tempiMotore;
 

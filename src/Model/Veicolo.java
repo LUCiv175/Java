@@ -1,3 +1,5 @@
+package Model;
+
 public abstract class Veicolo {
     private int annoImmatricolazione;
     private String marca;
