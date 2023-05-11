@@ -1,10 +1,12 @@
+package Model;
+
 public class Garage {
     private VeicoloInGarage[] p;
     private final int nPosti = 25;
     private final double costoMotocicletta = 1.0;
     private final double costoAuto = 1.5;
 
-    Garage() {
+    public Garage() {
         p = new VeicoloInGarage[nPosti];
     }
 
@@ -25,7 +27,7 @@ public class Garage {
     }
 
     public double uscitaVeicolo(int posizione, int ora, int minuti) {
-        try {
+        //try {
             double tempo = (float)(-p[posizione].getMinutiArrivo() - p[posizione].getOraArrivo() * 60 + ora * 60+ minuti) / 60;
             double costo;
             String classe = p[posizione].getV().getClass().getSimpleName();
@@ -39,20 +41,22 @@ public class Garage {
             };
             p[posizione] = null;
             return costo;
-        } catch (NullPointerException e) {
+     /*   } catch (NullPointerException e) {
             System.out.println("Elemento non trovato");
             return 0;
-        }
+        }*/
     }
 
-    public void statoPosizioni() {
+    public String statoPosizioni() {
+        String s="";
         for (int i = 0; i < p.length; i++) {
             if (p[i]==null) {
-                System.out.println("Il posto " + (i + 1) + " e' libero");
+                s+=("Il posto " + (i + 1) + " e' libero\n");
             } else {
-                System.out.println("Il posto " + (i + 1) + " e' occupato da " + p[i].toString());
+                s+=("Il posto " + (i + 1) + " e' occupato da " + p[i].toString()+"\n");
             }
         }
+        return s;
     }
 
 }

@@ -1,3 +1,5 @@
+package Model;
+
 public class VeicoloInGarage {
     private int oraArrivo;
     private int minutiArrivo;

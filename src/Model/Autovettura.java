@@ -1,8 +1,10 @@
+package Model;
+
 public class Autovettura extends Veicolo {
     int numeroPosti;
 
-    Autovettura(int annoImmatricolazione, String marca, String modello, String tipoAlimentazione, int cilindrata,
-            int numeroPosti) {
+    public Autovettura(int annoImmatricolazione, String marca, String modello, String tipoAlimentazione, int cilindrata,
+                       int numeroPosti) {
         super(annoImmatricolazione, marca, modello, tipoAlimentazione, cilindrata);
         this.numeroPosti = numeroPosti;
     }
